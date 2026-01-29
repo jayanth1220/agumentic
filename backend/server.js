@@ -29,10 +29,9 @@ mongoose.connection.once("open", async () => {
   }
 });
 
-/* ===================== SOCKET ===================== */
+
 io.on("connection", () => console.log("Client connected"));
 
-/* ===================== PRODUCTS ===================== */
 app.get("/products", async (req, res) => {
   const role = req.query.role;
   const products = await Product.find();
@@ -44,7 +43,6 @@ app.get("/products", async (req, res) => {
   res.json(products);
 });
 
-/* ===================== ORDER ===================== */
 app.post("/order", async (req, res) => {
   const { productId, quantity } = req.body;
 
@@ -67,13 +65,13 @@ app.post("/order", async (req, res) => {
   res.json({ message: "Order placed" });
 });
 
-/* ===================== ORDER HISTORY ===================== */
+
 app.get("/orders", async (req, res) => {
   const orders = await Order.find().sort({ createdAt: -1 });
   res.json(orders);
 });
 
-/* ===================== ADMIN ADD STOCK ===================== */
+
 app.post("/admin/add-stock", async (req, res) => {
   const { productId, quantity } = req.body;
 
@@ -90,7 +88,6 @@ app.post("/admin/add-stock", async (req, res) => {
   res.json({ message: "Stock updated" });
 });
 
-/* ===================== START SERVER ===================== */
 server.listen(5000, () => {
   console.log("Server running on port 5000");
 });
